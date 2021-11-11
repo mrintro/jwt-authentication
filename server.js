@@ -1,10 +1,43 @@
 const express = require('express')
+const dotenv = require('dotenv')
+const mongoose = require('mongoose')
+const authRoutes = require('./app/routes/authRoute')
 
 
+dotenv.config()
 const app = express()
 
-const PORT = process.env.port || 6060;
+// Middleware Configuration
+app.use(express.static('public'))
+app.use(express.json())
 
-app.listen(PORT, ()=>{
-    console.log(`Running on PORT ${PORT}`)
+const PORT = process.env.PORT || 6060;
+
+
+const uri = process.env.URI;
+console.log("Connecting to DB...")
+mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true });
+
+const db = mongoose.connection;
+
+db.on("error", console.error.bind(console, "connection error ..."));
+
+db.once("open", ()=>{
+    app.listen(PORT, ()=> {
+        console.log(`connected to PORT ${PORT}`)
+    })
 })
+
+
+// client.connect(err => { 
+//     const collection = client.db("test").collection("devices");
+//     app.listen(PORT, ()=>{
+//         console.log(`connected to PORT ${PORT}`)
+//     })
+//     client.close();
+// });
+
+app.get('/', (req, res) => {
+    res.send("something")
+})
+app.use(authRoutes)
