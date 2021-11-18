@@ -1,5 +1,7 @@
 const mongoose = require('mongoose');
-const { isEmail } = require('validator') 
+const { isEmail } = require('validator')
+
+const bcrypt = require('bcrypt')
 
 const userSchema = new mongoose.Schema({
     email: {
@@ -23,6 +25,17 @@ const userSchema = new mongoose.Schema({
         required: [true, `Please provide an username`],
         unique: true
     }
+});
+
+userSchema.post('save', (doc, next) => {
+    console.log("new user was created", doc)
+    next();
+})
+
+userSchema.pre('save', async function(next) {
+    const salt = await bcrypt.genSalt();
+    this.password = await bcrypt.hash(this.password, salt)
+    next();
 })
 
 const User = mongoose.model('user', userSchema);

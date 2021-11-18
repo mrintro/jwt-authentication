@@ -8,5 +8,6 @@ module.exports.handleAuthErrors = (err) => {
             errors[properties.path] = properties.message
         })
     }
+    console.log(err)
     return errors
 }
