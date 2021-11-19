@@ -16,7 +16,7 @@ const PORT = process.env.PORT || 6060;
 
 const uri = process.env.URI;
 console.log("Connecting to DB...")
-mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true });
+mongoose.connect(uri.toString(), { useNewUrlParser: true, useUnifiedTopology: true });
 
 const db = mongoose.connection;
 
