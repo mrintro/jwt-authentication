@@ -30,6 +30,6 @@ db.once("open", ()=>{
 
 
 app.get('/', (req, res) => {
-    res.send("something")
+    res.send("Kitne bekar ho aap")
 })
 app.use(authRoutes)
