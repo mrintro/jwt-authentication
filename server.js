@@ -29,14 +29,6 @@ db.once("open", ()=>{
 })
 
 
-// client.connect(err => { 
-//     const collection = client.db("test").collection("devices");
-//     app.listen(PORT, ()=>{
-//         console.log(`connected to PORT ${PORT}`)
-//     })
-//     client.close();
-// });
-
 app.get('/', (req, res) => {
     res.send("something")
 })

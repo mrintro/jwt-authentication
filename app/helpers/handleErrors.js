@@ -9,5 +9,8 @@ module.exports.handleAuthErrors = (err) => {
         })
     }
     console.log(err)
+
+    Object.keys(errors).forEach((key) => {if(errors[key]==="") delete errors[key]})
+    console.log(errors)
     return errors
 }
