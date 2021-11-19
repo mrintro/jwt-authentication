@@ -29,9 +29,12 @@ module.exports.signUp = async (req, res) => {
 }
 
 module.exports.signin = async (req, res) => {
+    console.log(req.body)
+
     const { email, password } = req.body
 
     try {
+        console.log("Check Trying")
         const user = await User.login(email, password);
         const token = createToken(user._id);
 
